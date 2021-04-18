@@ -1,0 +1,179 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+
+public class MainMenu : MonoBehaviour
+{
+    [SerializeField] private Canvas settingsMenu;
+    [SerializeField] private Canvas mainMenu;
+    [SerializeField] private Canvas levelsMenu;
+    [SerializeField] private Button lvl1, lvl2, lvl3;
+    [SerializeField] private GameObject selectedButtonMainMenu, selectedButtonSettings, selectedButtonLevels;
+    [SerializeField] private AudioListener listener;
+
+    private bool eng = false;
+    [SerializeField] private Text levelsButton, howToPlayButton, settingsButton, quitButton;
+    [SerializeField] private Text soundButton, languageButton, backToMenuButton1;
+    [SerializeField] private Text level1button, level2button, level3button, backToMenuButton2;
+
+    public void Awake()
+    {
+        if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
+        SetLanguage();
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
+        if (PlayerPrefs.GetInt("levels") >= 1)
+        {
+            lvl1.interactable = true;
+        }
+        else lvl1.interactable = false;
+        if (PlayerPrefs.GetInt("levels") >= 2)
+        {
+            lvl2.interactable = true;
+        }
+        else lvl2.interactable = false;
+        if (PlayerPrefs.GetInt("levels") == 3)
+        {
+            lvl3.interactable = true;
+        }
+        else lvl3.interactable = false;
+    }
+
+    public void Levels()
+    {
+        mainMenu.gameObject.SetActive(false);
+        levelsMenu.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selectedButtonLevels);
+    }
+
+    public void Level1()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("FirstLevel");
+        PlayerPrefs.SetInt("paused", 0);
+    }
+    public void Level2()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("SecondLevel");
+        PlayerPrefs.SetInt("paused", 0);
+    }
+    public void Level3()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("ThirdLevel");
+        PlayerPrefs.SetInt("paused", 0);
+    }
+
+    public void HowToPlay()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("SampleScene");
+        PlayerPrefs.SetInt("paused", 0);
+    }
+
+    public void Settings()
+    {
+        mainMenu.gameObject.SetActive(false);
+        settingsMenu.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selectedButtonSettings);
+    }
+
+    public void BackToMenu()
+    {
+        levelsMenu.gameObject.SetActive(false);
+        settingsMenu.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void Language()
+    {
+        eng = !eng;
+        if (eng) PlayerPrefs.SetString("lang", "eng"); else PlayerPrefs.SetString("lang", "ru");
+        SetLanguage();
+    }
+
+    private void SetLanguage()
+    {
+        switch (PlayerPrefs.GetString("lang"))
+        {
+            case "eng":
+                levelsButton.text = "LEVELS";
+                howToPlayButton.text = "HOW TO PLAY";
+                settingsButton.text = "SETTINGS";
+                quitButton.text = "QUIT";
+
+                if (PlayerPrefs.GetString("volume") == "on") soundButton.text = "SOUND: ON"; else soundButton.text = "SOUND: OFF";
+                languageButton.text = "LANGUAGE: ENG";
+                backToMenuButton1.text = "BACK TO MENU";
+
+                level1button.text = "LEVEL 1";
+                level2button.text = "LEVEL 2";
+                level3button.text = "LEVEL 3";
+                backToMenuButton2.text = "BACK TO MENU";
+                break;
+            case "ru":
+                levelsButton.text = "”–Œ¬Õ»";
+                howToPlayButton.text = "Œ¡”◊≈Õ»≈";
+                settingsButton.text = "Õ¿—“–Œ… »";
+                quitButton.text = "¬€’Œƒ";
+
+                if (PlayerPrefs.GetString("volume") == "on") soundButton.text = "«¬” : ¬ À"; else soundButton.text = "«¬” : ¬€ À";
+                languageButton.text = "ﬂ«€ : –”—";
+                backToMenuButton1.text = "Õ¿«¿ƒ ¬ Ã≈Õﬁ";
+
+                level1button.text = "”–Œ¬≈Õ‹ 1";
+                level2button.text = "”–Œ¬≈Õ‹ 2";
+                level3button.text = "”–Œ¬≈Õ‹ 3";
+                backToMenuButton2.text = "Õ¿«¿ƒ ¬ Ã≈Õﬁ";
+                break;
+        }
+
+        
+    }
+    public void SoundSwitch()
+    {
+        if (soundButton.text == "«¬” : ¬ À" || soundButton.text == "SOUND: ON")
+        {
+            //‚˚ÍÎ˛˜ÂÌËÂ Á‚ÛÍ‡
+            AudioListener.volume = 0f;
+            PlayerPrefs.SetString("volume", "off");
+            switch (PlayerPrefs.GetString("lang"))
+            {
+                case "eng":
+                    soundButton.text = "SOUND: OFF";
+                    break;
+                case "ru":
+                    soundButton.text = "«¬” : ¬€ À";
+                    break;
+            }
+        }
+        else
+        {
+            //‚ÍÎ˛˜ÂÌËÂ Á‚ÛÍ‡
+            AudioListener.volume = 1f;
+            PlayerPrefs.SetString("volume", "on");
+            switch (PlayerPrefs.GetString("lang"))
+            {
+                case "eng":
+                    soundButton.text = "SOUND: ON";
+                    break;
+                case "ru":
+                    soundButton.text = "«¬” : ¬ À";
+                    break;
+            }
+        }
+    }
+}
