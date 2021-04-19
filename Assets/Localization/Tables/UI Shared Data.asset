@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI
+  m_TableCollectionNameGuidString: 79a24162dbd287848830d7d8fbadcab7
+  m_Entries:
+  - m_Id: 72058052608
+    m_Key: levels
+    m_Metadata:
+      m_Items: []
+  - m_Id: 202207305728
+    m_Key: howto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 803238486016
+    m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 874902364160
+    m_Key: quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 967248355328
+    m_Key: backto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1112299970560
+    m_Key: lang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1214473216000
+    m_Key: lvl1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1353191432192
+    m_Key: lvl2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1366881640448
+    m_Key: lvl3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1476873068544
+    m_Key: vol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6278793306112
+    m_Key: interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6861856088064
+    m_Key: pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6952146870272
+    m_Key: resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9797130690560
+    m_Key: next
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1618852599039

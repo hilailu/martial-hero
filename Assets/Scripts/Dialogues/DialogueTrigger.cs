@@ -17,20 +17,9 @@ public class DialogueTrigger : MonoBehaviour
     void Awake()
     {
         _button = GetComponent<Button>();
-        switch (PlayerPrefs.GetString("lang"))
-        {
-            case "ru":
-                notifText.text = "Нажмите Е, чтобы взаимодействовать";
-                next.text = "Далее";
-                break;
-            case "eng":
-                notifText.text = "Press E to interact";
-                next.text = "Next";
-                break;
-        }
     }
 
-    void Update ()
+    void Update()
     {
         WhatSign();
         if (NotifAnimator.GetBool("NOpen") && Input.GetButtonDown("Submit"))
@@ -46,12 +35,12 @@ public class DialogueTrigger : MonoBehaviour
  
     void WhatSign()
     {
-        switch (PlayerPrefs.GetString("lang"))
+        switch (PlayerPrefs.GetString("selected-locale"))
         {
             case "ru":
                 WhatSignRu();
                 break;
-            case "eng":
+            case "en":
                 WhatSignEng();
                 break;
         }
@@ -108,8 +97,8 @@ public class DialogueTrigger : MonoBehaviour
                 break;
         }
     }
-    void WhatSignEng()
 
+    void WhatSignEng()
     {
         switch (NotifAnimator.GetInteger("SignNum"))
         {

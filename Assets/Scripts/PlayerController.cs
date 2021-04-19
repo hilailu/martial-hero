@@ -100,10 +100,12 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.SetInt("paused", 0);
         Time.timeScale = 1;
     }
+
     public void ToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.tag)
@@ -114,26 +116,8 @@ public class PlayerController : MonoBehaviour
                 PermanentUI.perm.coins += 1;
                 PermanentUI.perm.coinsNum.text = PermanentUI.perm.coins.ToString();
                 break;
-            case "Sign1":
-                NotifAnimator.SetInteger("SignNum", 1);
-                break;
-            case "Sign2":
-                NotifAnimator.SetInteger("SignNum", 2);
-                break;
-            case "Sign3":
-                NotifAnimator.SetInteger("SignNum", 3);
-                break;
-            case "Sign4":
-                NotifAnimator.SetInteger("SignNum", 4);
-                break;
-            case "Sign5":
-                NotifAnimator.SetInteger("SignNum", 5);
-                break;
-            case "Sign6":
-                NotifAnimator.SetInteger("SignNum", 6);
-                break;
-            case "Sign7":
-                NotifAnimator.SetInteger("SignNum", 7);
+            case "Sign":
+                NotifAnimator.SetInteger("SignNum", collision.GetComponent<Sign>().num);
                 break;
             case "Potion":
                 potion.Play();
@@ -190,6 +174,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     private void ChangeHealth()
     {
         health -= 1;

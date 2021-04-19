@@ -6,15 +6,9 @@ TagManager:
   tags:
   - Collectable
   - Enemy
-  - Sign1
-  - Sign2
-  - Sign3
-  - Sign4
-  - Sign5
-  - Sign6
   - Potion
   - Heart
-  - Sign7
+  - Sign
   layers:
   - Default
   - TransparentFX
