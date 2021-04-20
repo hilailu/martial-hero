@@ -5147,8 +5147,6 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences: []
-  _Key: 101
-  _AltKey: 333
   _button: {fileID: 1510019523}
   NotifAnimator: {fileID: 1510019521}
   notifText: {fileID: 1908910725}
@@ -21833,6 +21831,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 20506669}
     - target: {fileID: 2162203523676859403, guid: c247d950e434fef4f89d49d48ec74ea2, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162203523676859403, guid: c247d950e434fef4f89d49d48ec74ea2, type: 3}
       propertyPath: pausedCanvas
       value: 
       objectReference: {fileID: 190305279}
@@ -21848,6 +21850,10 @@ PrefabInstance:
       propertyPath: NotifAnimator
       value: 
       objectReference: {fileID: 1510019521}
+    - target: {fileID: 2162203523676859403, guid: c247d950e434fef4f89d49d48ec74ea2, type: 3}
+      propertyPath: ground.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 2162203523676859403, guid: c247d950e434fef4f89d49d48ec74ea2, type: 3}
       propertyPath: DiaBoxAnimator
       value: 

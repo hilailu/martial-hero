@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask land;
     [SerializeField] private float speed = 9f;
     [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private float gravity = -10f;
 
     [SerializeField] private int health = 3;
     [SerializeField] private Text healthNum;
@@ -33,7 +34,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource hurt;
     [SerializeField] private Canvas pausedCanvas;
     [SerializeField] private GameObject firstSelectedButton;
-    [SerializeField] private Text pauseText, continueButton, toMenuButton;
 
     private enum State { idle, run, jump, fall, takehit, attack }
     private State state = State.idle;
@@ -64,12 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("paused") == 0)
         {
-            if (state != State.takehit)
-            {
-                Movement();
-            }
-            StateSwitch();
-            anim.SetInteger("state", (int)state);
+            CheckState();
             if (Input.GetButtonDown("Fire2"))
             {
                 Time.timeScale = 0;
@@ -80,6 +75,66 @@ public class PlayerController : MonoBehaviour
             }
         }
         else if (Input.GetButtonDown("Fire2") && PlayerPrefs.GetInt("paused") == 1) ContinueGame();
+    }
+
+    private void CheckState()
+    {
+        if (state != State.takehit)
+        {
+            if (Input.GetAxis("Horizontal") > 0f)
+                transform.localScale = new Vector2(1, 1);
+
+            if (Input.GetAxis("Horizontal") < 0f)
+                transform.localScale = new Vector2(-1, 1);
+
+            transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * speed;
+
+            if (col.IsTouchingLayers(land))
+            {
+                if (Input.GetAxis("Horizontal") != 0f && CorCount == 0 && state != State.jump)
+                    state = State.run;
+
+                if (state == State.fall)
+                    state = State.idle;
+
+                if (Input.GetButtonDown("Jump") && !DiaBoxAnimator.GetBool("DBOpen"))
+                {
+                    rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                    if (state != State.attack)
+                        state = State.jump;
+                }
+            }
+
+            if (state != State.attack)
+            {
+                if (col.IsTouchingLayers(land) && Input.GetAxis("Horizontal") == 0f && state != State.jump)
+                    state = State.idle;
+
+                if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
+                    state = State.fall;
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    prevState = state;
+                    state = State.attack;
+                    Attack();
+                }
+            }
+        }
+
+        if (state == State.takehit)
+        {
+            if (Mathf.Abs(rb.velocity.x) < .1f)
+            {
+                state = State.idle;
+            }
+            else if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
+            {
+                state = State.fall;
+            }
+        }
+
+        anim.SetInteger("state", (int)state);
     }
 
     public void ContinueGame()
@@ -128,7 +183,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-
         if (other.gameObject.tag == "Enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -142,13 +196,15 @@ public class PlayerController : MonoBehaviour
             else if (state == State.fall)
             {
                 enemy.JumpedOn();
-                Jump();
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
             else
             {
-                state = State.takehit;
+                state = State.takehit;                
                 hurt.Play();
                 ChangeHealth();
+                anim.SetInteger("state", (int)state);
+                Debug.Log(state.ToString() + anim.GetInteger("state"));
                 if (other.transform.position.x > transform.position.x)
                 {
                     //enemy to my right, hero takes damage and thrown to left
@@ -173,99 +229,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Movement()
-    {
-        float hDirection = Input.GetAxis("Horizontal");
-        //left
-        if (hDirection < 0)
-        {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-            transform.localScale = new Vector2(-1, 1);
-        }
-        //right
-        else if (hDirection > 0)
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-            transform.localScale = new Vector2(1, 1);
-        }
-        //jump
-        if (Input.GetButtonDown("Jump") && col.IsTouchingLayers(land) && !DiaBoxAnimator.GetBool("DBOpen"))
-        {
-            Jump();
-        }
-    }
-    private void Jump()
-    {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        state = State.jump;
-    }
-    private void StateSwitch()
-    {
-        //fall when jumping
-        if (state == State.jump)
-        {
-            if (rb.velocity.y < .1f)
-            {
-                state = State.fall;
-            }
-        }
-        //idle when done falling
-        else if (state == State.fall)
-        {
-            if (col.IsTouchingLayers(land))
-            {
-                state = State.idle;
-            }
-        }
-        //idle when done taking hit or fall when you got hit while jumping
-        else if (state == State.takehit)
-        {
-            if (Mathf.Abs(rb.velocity.x) < .1f)
-            {
-                state = State.idle;
-            }
-            else if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
-            {
-                state = State.fall;
-            }
-        }
-
-        else if (Mathf.Abs(rb.velocity.x) > 2f && CorCount == 0 && col.IsTouchingLayers(land))
-        {
-            state = State.run;  
-            if (Input.GetButtonDown("Fire1"))
-            {
-                state = State.attack;
-                Attack();
-
-            }
-        }
-
-        //attacking
-        else if (Input.GetButtonDown("Fire1") && state != State.attack)
-        {
-            prevState = state;
-            state = State.attack;
-        }
-        //attack animation
-        else if (state == State.attack && CorCount == 0)
-        {
-            Attack();
-        }
-        //any other options being either idling or falling
-        else
-        {
-            if (state != State.attack)
-            {
-                state = State.idle;
-                if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
-                {
-                    state = State.fall;
-                }
-            }
-        }
-
-    }
     private void Attack()
     {
         boxcol.offset = new Vector2(boxcol.offset.x + 1.7f, boxcol.offset.y);
