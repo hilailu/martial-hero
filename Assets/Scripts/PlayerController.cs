@@ -40,19 +40,6 @@ public class PlayerController : MonoBehaviour
     private State prevState = State.idle;
     private void Awake()
     {
-        switch (PlayerPrefs.GetString("lang"))
-        {
-            case "ru":
-                pauseText.text = "ПАУЗА";
-                continueButton.text = "ПРОДОЛЖИТЬ";
-                toMenuButton.text = "В ГЛАВНОЕ МЕНЮ";
-                break;
-            case "eng":
-                pauseText.text = "PAUSED";
-                continueButton.text = "RESUME";
-                toMenuButton.text = "BACK TO MAIN MENU";
-                break;
-        }
         if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
     }
     
@@ -94,6 +81,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Fire2") && PlayerPrefs.GetInt("paused") == 1) ContinueGame();
     }
+
     public void ContinueGame()
     {
         pausedCanvas.gameObject.SetActive(false);
@@ -184,6 +172,7 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
+
     private void Movement()
     {
         float hDirection = Input.GetAxis("Horizontal");

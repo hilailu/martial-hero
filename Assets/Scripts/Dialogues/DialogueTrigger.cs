@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
-    public KeyCode _Key;
-    public KeyCode _AltKey;
     public Button _button;
     public Animator NotifAnimator;
     public Text notifText;
@@ -21,10 +19,11 @@ public class DialogueTrigger : MonoBehaviour
 
     void Update()
     {
-        WhatSign();
-        if (NotifAnimator.GetBool("NOpen") && Input.GetButtonDown("Submit"))
+        if (NotifAnimator.GetBool("NOpen"))
         {
-            _button.onClick.Invoke();
+            WhatSign();
+            if (Input.GetButtonDown("Submit"))
+                _button.onClick.Invoke();
         }
     }
 
