@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Key: next
     m_Metadata:
       m_Items: []
+  - m_Id: 431964582486016
+    m_Key: store
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

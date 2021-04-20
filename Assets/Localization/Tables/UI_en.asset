@@ -74,5 +74,9 @@ MonoBehaviour:
     m_Localized: Next
     m_Metadata:
       m_Items: []
+  - m_Id: 431964582486016
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

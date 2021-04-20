@@ -20,15 +20,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private LayerMask land;
     [SerializeField] private float speed = 9f;
-    [SerializeField] private float jumpForce = 20f;
+    public float jumpForce = 20f;
 
-    [SerializeField] private int health = 3;
-    [SerializeField] private Text healthNum;
+    public int health = 3;
+    public Text healthNum;
     [SerializeField] private float hitForce = 7f;
     [SerializeField] private AudioSource steps;
-    [SerializeField] private AudioSource coin;
     [SerializeField] private AudioSource swoosh;
-    [SerializeField] private AudioSource potion;
     [SerializeField] private AudioSource heart;
     [SerializeField] private AudioSource hurt;
     [SerializeField] private Canvas pausedCanvas;
@@ -151,37 +149,15 @@ public class PlayerController : MonoBehaviour
     {
         switch (collision.tag)
         {
-            case "Collectable":
-                coin.Play();
-                Destroy(collision.gameObject);
-                PermanentUI.perm.coins += 1;
-                PermanentUI.perm.coinsNum.text = PermanentUI.perm.coins.ToString();
-                break;
             case "Sign":
                 NotifAnimator.SetInteger("SignNum", collision.GetComponent<Sign>().num);
-                break;
-            case "Potion":
-                potion.Play();
-                Destroy(collision.gameObject);
-                jumpForce += 10f;
-                GetComponent<SpriteRenderer>().color = Color.red;
-                StartCoroutine(ResetPowerUp());
-                break;
-            case "Heart":
-                heart.Play();
-                Destroy(collision.gameObject);
-                if (health < 3)
-                {
-                    health += 1;
-                    healthNum.text = health.ToString();
-                }
                 break;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             GoblinController goblin = other.gameObject.GetComponent<GoblinController>();
@@ -202,7 +178,6 @@ public class PlayerController : MonoBehaviour
                 hurt.Play();
                 ChangeHealth();
                 anim.SetInteger("state", (int)state);
-                Debug.Log(state.ToString() + anim.GetInteger("state"));
                 if (other.transform.position.x > transform.position.x)
                 {
                     //enemy to my right, hero takes damage and thrown to left
@@ -233,13 +208,6 @@ public class PlayerController : MonoBehaviour
         boxcol.size = new Vector2(boxcol.size.x + 3.5f, boxcol.size.y);
         CorCount = 1;
         StartCoroutine("OnCompleteAttackAnimation");
-    }
-
-    IEnumerator ResetPowerUp()
-    {
-        yield return new WaitForSeconds(10);
-        jumpForce -= 10f;
-        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     IEnumerator EnemyDeath(Collision2D other)

@@ -10,11 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Dialogue Shared Data
+  m_Name: Store Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Dialogue
+  m_TableCollectionName: Store
   m_TableCollectionNameGuidString: b46873236d8b76146bf0dc273c87014a
-  m_Entries: []
+  m_Entries:
+  - m_Id: 435886378360832
+    m_Key: text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 436163722518528
+    m_Key: buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 436206135320576
+    m_Key: close
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -10,13 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Dialogue_en
+  m_Name: Store_en
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: b46873236d8b76146bf0dc273c87014a, type: 2}
   m_Metadata:
-    m_Items: []
-  m_TableData: []
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 435886378360832
+    m_Localized: Buy {item.name} for {item.cost}?
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 436163722518528
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 436206135320576
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00a0beb46f8c0100
