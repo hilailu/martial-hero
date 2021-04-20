@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask land;
     [SerializeField] private float speed = 9f;
     [SerializeField] private float jumpForce = 20f;
-    [SerializeField] private float gravity = -10f;
 
     [SerializeField] private int health = 3;
     [SerializeField] private Text healthNum;
@@ -38,23 +37,22 @@ public class PlayerController : MonoBehaviour
     private enum State { idle, run, jump, fall, takehit, attack }
     private State state = State.idle;
     private State prevState = State.idle;
-    private void Awake()
-    {
-        if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
-    }
-    
+
     private void Start() 
     {
+        if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
         boxcol = GetComponent<BoxCollider2D>();
         healthNum.text = health.ToString();
     }
+
     public void Footstep()
     {
         steps.Play();
     }
+
     public void Swoosh()
     {
         swoosh.Play();

@@ -9,6 +9,7 @@ TagManager:
   - Potion
   - Heart
   - Sign
+  - Store
   layers:
   - Default
   - TransparentFX
