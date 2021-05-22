@@ -15,6 +15,7 @@ public class GoblinController : Enemy
     private Animation anima;
     public int hitCount = 0;
     private bool facingRight = true;
+    private bool isDying = false;
 
     protected override void Start()
     {
@@ -22,6 +23,7 @@ public class GoblinController : Enemy
         col = GetComponent<Collider2D>();
         //base.anim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
+
     private void Update()
     {
         if (!base.anim.GetBool("Attacked"))
@@ -33,13 +35,15 @@ public class GoblinController : Enemy
         {
             base.rb.velocity = new Vector2(0, 0);
             Invoke("NotAttacked", 0.417f);
-            if (hitCount>=3)
+            if (hitCount >= 3 && isDying != true)
             {
+                isDying = true;
                 base.JumpedOn();
                 //base.anim.SetTrigger("Death");
             }
         }
     }
+
     private void Move()
     {
         if (!facingRight)
@@ -82,10 +86,12 @@ public class GoblinController : Enemy
         }
         goblinState = State.run;
     }
+
     public void Hit()
     {
         hit.Play();
     }
+
     private void NotAttacked()
     {
         base.anim.SetBool("Attacked", false);

@@ -94,6 +94,13 @@ public class DialogueTrigger : MonoBehaviour
                                                     "Но не забывай, что жизней может быть только три, так что четвертую подобрать не получится.",
                                                     "Слышишь звук деревни? Направляйся туда, чтобы сменить локацию." };
                 break;
+            case 8:
+                dialogue.name = "...";
+                dialogue.sentences = new string[] { "Похоже, ты нашел выход на следующий уровень.",
+                                                    "Но чтобы пройти, тебе нужно иметь ключ в инвентаре.",
+                                                    "Магазин можно открыть с помощью клавиши Tab или кнопки LT на геймпаде.",
+                                                    "Собери нужное количество монет, купи ключ и возвращайся!" };
+                break;
         }
     }
 
@@ -145,6 +152,13 @@ public class DialogueTrigger : MonoBehaviour
                                                     "Lives are displayed at the top left corner of the screen, just as coins are.",
                                                     "But don't forget that lives' maximum is 3, so you can't pick up a fourth one.",
                                                     "Do you hear village sounds? Go check it out and change your location." };
+                break;
+            case 8:
+                dialogue.name = "...";
+                dialogue.sentences = new string[] { "Looks like you've found another level.",
+                                                    "But in order to proceed you need to have a key in your inventory.",
+                                                    "You can open the store using Tab or LT button on your controller.",
+                                                    "Collect coins, buy a key and come back!" };
                 break;
         }
     }

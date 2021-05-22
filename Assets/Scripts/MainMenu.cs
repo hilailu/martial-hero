@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Localization;
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,13 +13,20 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Canvas mainMenu;
     [SerializeField] private Canvas levelsMenu;
     [SerializeField] private Button lvl1, lvl2, lvl3;
-    [SerializeField] private GameObject selectedButtonMainMenu, selectedButtonSettings, selectedButtonLevels;
-    [SerializeField] private AudioListener listener;
+    [SerializeField] private GameObject selectedButtonMainMenu, selectedButtonSettings, selectedButtonLevels, selectedButtonStats;
+    [SerializeField] private Text vol;
 
+    private LocalizedString volume = new LocalizedString { TableReference = "UI"};
+
+    void UpdateString(string translatedValue)
+    {
+        vol.text = translatedValue;
+    }
 
     public void Awake()
     {
         if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
+        volume.StringChanged += UpdateString;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
         if (PlayerPrefs.GetInt("levels") >= 1)
@@ -78,6 +86,12 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(selectedButtonSettings);
     }
 
+    public void Stats()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selectedButtonStats);
+    }
+
     public void BackToMenu()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -101,14 +115,17 @@ public class MainMenu : MonoBehaviour
         if (AudioListener.volume == 1f)
         {
             //выключение звука
+            volume.TableEntryReference = "vol off";
             AudioListener.volume = 0f;
             PlayerPrefs.SetString("volume", "off");
         }
         else
         {
             //включение звука
+            volume.TableEntryReference = "vol on";
             AudioListener.volume = 1f;
             PlayerPrefs.SetString("volume", "on");
         }
+        volume.RefreshString();
     }
 }

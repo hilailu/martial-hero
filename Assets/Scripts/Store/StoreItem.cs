@@ -22,8 +22,4 @@ public class StoreItem : MonoBehaviour
         _icon.enabled = false;
     }
 
-    public void OnClick()
-    {
-        StoreManager.instance.willYouBuy.SetBool("Open", true);
-    }
 }

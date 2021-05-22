@@ -51,10 +51,6 @@ MonoBehaviour:
     m_Key: lvl3
     m_Metadata:
       m_Items: []
-  - m_Id: 1476873068544
-    m_Key: vol
-    m_Metadata:
-      m_Items: []
   - m_Id: 6278793306112
     m_Key: interact
     m_Metadata:
@@ -73,6 +69,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 431964582486016
     m_Key: store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11967204404666368
+    m_Key: vol on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11967360424386560
+    m_Key: vol off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11968818813247488
+    m_Key: stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11972730094002176
+    m_Key: statistics
     m_Metadata:
       m_Items: []
   m_Metadata:

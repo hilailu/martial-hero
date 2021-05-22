@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 20f;
 
     public int health = 3;
-    public Text healthNum;
+    public TMP_Text healthNum;
     [SerializeField] private float hitForce = 7f;
     [SerializeField] private AudioSource steps;
     [SerializeField] private AudioSource swoosh;
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource hurt;
     [SerializeField] private Canvas pausedCanvas;
     [SerializeField] private GameObject firstSelectedButton;
+    [SerializeField] private GameObject selectedStore;
+
 
     private enum State { idle, run, jump, fall, takehit, attack }
     private State state = State.idle;
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<Collider2D>();
         boxcol = GetComponent<BoxCollider2D>();
         healthNum.text = health.ToString();
+        Debug.Log($"{Statistics.allCoins} coins, {Statistics.deaths} deaths, {Statistics.enemiesKilled} enemies");
     }
 
     public void Footstep()
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
         if (PlayerPrefs.GetInt("paused") == 0)
         {
             CheckState();
+
             if (Input.GetButtonDown("Fire2"))
             {
                 Time.timeScale = 0;
@@ -69,66 +74,89 @@ public class PlayerController : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(firstSelectedButton);
             }
+
+            if (Input.GetButtonDown("Fire3") && !DiaBoxAnimator.GetBool("DBOpen"))
+            {
+                if (StoreManager.instance != null && !StoreManager.instance.store.GetBool("Open"))
+                {
+                    StoreManager.instance.store.SetBool("Open", true);
+                    EventSystem.current.SetSelectedGameObject(null);
+                    EventSystem.current.SetSelectedGameObject(selectedStore);
+                }
+                else if (StoreManager.instance != null && StoreManager.instance.store.GetBool("Open"))
+                {
+                    StoreManager.instance.store.SetBool("Open", false);
+                    StoreManager.instance.willYouBuy.SetBool("Open", false);
+                    EventSystem.current.SetSelectedGameObject(null);
+                }
+            }
+
         }
         else if (Input.GetButtonDown("Fire2") && PlayerPrefs.GetInt("paused") == 1) ContinueGame();
     }
 
     private void CheckState()
     {
-        if (state != State.takehit)
+        if (StoreManager.instance == null || !StoreManager.instance.store.GetBool("Open"))
         {
-            if (Input.GetAxis("Horizontal") > 0f)
-                transform.localScale = new Vector2(1, 1);
-
-            if (Input.GetAxis("Horizontal") < 0f)
-                transform.localScale = new Vector2(-1, 1);
-
-            transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * speed;
-
-            if (col.IsTouchingLayers(land))
+            if (state != State.takehit)
             {
-                if (Input.GetAxis("Horizontal") != 0f && CorCount == 0 && state != State.jump)
-                    state = State.run;
+                if (Input.GetAxis("Horizontal") > 0f)
+                    transform.localScale = new Vector2(1, 1);
 
-                if (state == State.fall)
-                    state = State.idle;
+                if (Input.GetAxis("Horizontal") < 0f)
+                    transform.localScale = new Vector2(-1, 1);
 
-                if (Input.GetButtonDown("Jump") && !DiaBoxAnimator.GetBool("DBOpen"))
+                transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, 0) * Time.deltaTime * speed;
+
+                if (col.IsTouchingLayers(land))
                 {
-                    rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                    if (state != State.attack)
-                        state = State.jump;
+                    if (Input.GetAxis("Horizontal") != 0f && CorCount == 0 && state != State.jump)
+                        state = State.run;
+
+                    if (state == State.fall)
+                        state = State.idle;
+
+                    if (Input.GetButtonDown("Jump") && !DiaBoxAnimator.GetBool("DBOpen"))
+                    {
+                        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                        if (state != State.attack)
+                            state = State.jump;
+                    }
+                }
+
+                if (state != State.attack)
+                {
+                    if (col.IsTouchingLayers(land) && Input.GetAxis("Horizontal") == 0f && state != State.jump)
+                        state = State.idle;
+
+                    if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
+                        state = State.fall;
+
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        prevState = state;
+                        state = State.attack;
+                        Attack();
+                    }
                 }
             }
 
-            if (state != State.attack)
+            if (state == State.takehit)
             {
-                if (col.IsTouchingLayers(land) && Input.GetAxis("Horizontal") == 0f && state != State.jump)
+                if (Mathf.Abs(rb.velocity.x) < .1f)
+                {
                     state = State.idle;
-
-                if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
+                }
+                else if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
+                {
                     state = State.fall;
-
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    prevState = state;
-                    state = State.attack;
-                    Attack();
                 }
             }
         }
 
-        if (state == State.takehit)
-        {
-            if (Mathf.Abs(rb.velocity.x) < .1f)
-            {
-                state = State.idle;
-            }
-            else if (!col.IsTouchingLayers(land) && rb.velocity.y < .1f)
-            {
-                state = State.fall;
-            }
-        }
+        if (StoreManager.instance != null && StoreManager.instance.store.GetBool("Open"))
+            state = State.idle;
 
         anim.SetInteger("state", (int)state);
     }

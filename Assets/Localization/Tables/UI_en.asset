@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 79a24162dbd287848830d7d8fbadcab7, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 72058052608
     m_Localized: LEVELS
@@ -54,8 +55,8 @@ MonoBehaviour:
     m_Localized: LEVEL 3
     m_Metadata:
       m_Items: []
-  - m_Id: 1476873068544
-    m_Localized: VOLUME
+  - m_Id: 11967204404666368
+    m_Localized: 'SOUND: ON'
     m_Metadata:
       m_Items: []
   - m_Id: 6278793306112
@@ -75,8 +76,30 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 431964582486016
-    m_Localized: Shop
+    m_Localized: Store
     m_Metadata:
       m_Items: []
+  - m_Id: 11967360424386560
+    m_Localized: 'SOUND: OFF'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11968818813247488
+    m_Localized: GAME STATS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11972730094002176
+    m_Localized: 'OVERALL DEATHS: {Statistics.deaths}
+
+      COLLECTED COINS: {Statistics.allCoins}
+
+      KILLED
+      ENEMIES: {Statistics.killedEnemies}'
+    m_Metadata:
+      m_Items:
+      - id: 0
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00a03e7422892a00

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PermanentUI : MonoBehaviour
 {
-    public int coins = 0;
-    public Text coinsNum;
+    public int coins;
+    public TMP_Text coinsNum;
     public static PermanentUI perm;
+
     private void Start()
     {
         //DontDestroyOnLoad(gameObject);
