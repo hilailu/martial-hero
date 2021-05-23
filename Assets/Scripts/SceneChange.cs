@@ -7,6 +7,7 @@ public class SceneChange : MonoBehaviour
 {
     [SerializeField] private string sceneName;
     [SerializeField] private Item key;
+    [SerializeField] private Item key2;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +15,7 @@ public class SceneChange : MonoBehaviour
         {
             if (sceneName == "SampleScene")
             {
-                if (InventoryManager.instance.items.Contains(key))
+                if (InventoryManager.instance.items.Contains(key) && InventoryManager.instance.items.Contains(key2))
                     SceneManager.LoadScene(sceneName);
             }
             else SceneManager.LoadScene(sceneName);

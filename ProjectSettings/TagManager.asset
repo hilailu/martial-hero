@@ -10,6 +10,8 @@ TagManager:
   - Heart
   - Sign
   - Store
+  - Stats
+  - StatsCanvas
   layers:
   - Default
   - TransparentFX
@@ -55,4 +57,10 @@ TagManager:
     locked: 0
   - name: Entity
     uniqueID: 2127460407
+    locked: 0
+  - name: Moving
+    uniqueID: 431829737
+    locked: 0
+  - name: Disappearing
+    uniqueID: 2934395851
     locked: 0

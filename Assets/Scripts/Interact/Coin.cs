@@ -16,7 +16,7 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(CoinSound());
-            Statistics.allCoins++;
+            Statistics.instance.allCoins++;
             PermanentUI.perm.coins += 1;
             PermanentUI.perm.coinsNum.text = PermanentUI.perm.coins.ToString();
         }

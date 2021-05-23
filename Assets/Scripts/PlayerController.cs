@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<Collider2D>();
         boxcol = GetComponent<BoxCollider2D>();
         healthNum.text = health.ToString();
-        Debug.Log($"{Statistics.allCoins} coins, {Statistics.deaths} deaths, {Statistics.enemiesKilled} enemies");
     }
 
     public void Footstep()
@@ -191,8 +190,13 @@ public class PlayerController : MonoBehaviour
             GoblinController goblin = other.gameObject.GetComponent<GoblinController>();
             if (state == State.attack)
             {
-                goblin.hitCount++;
-                enemy.GotHit();
+                if (goblin != null)
+                {
+                    goblin.hitCount++;
+                    enemy.GotHit();
+                }
+                else
+                    enemy.JumpedOn();
                  //StartCoroutine(EnemyDeath(other));
             }
             else if (state == State.fall)

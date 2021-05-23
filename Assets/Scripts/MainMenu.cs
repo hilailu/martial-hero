@@ -25,6 +25,9 @@ public class MainMenu : MonoBehaviour
 
     public void Awake()
     {
+        Statistics.instance.Save();
+        Statistics.instance.Upd();
+        Statistics.instance.go.SetActive(false);
         if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
         volume.StringChanged += UpdateString;
         EventSystem.current.SetSelectedGameObject(null);
@@ -58,6 +61,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("FirstLevel");
         PlayerPrefs.SetInt("paused", 0);
     }
+
     public void Level2()
     {
         Time.timeScale = 1f;

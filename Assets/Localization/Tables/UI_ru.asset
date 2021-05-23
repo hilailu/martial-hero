@@ -90,9 +90,9 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 11972730094002176
     m_Localized: "\u0421\u041C\u0415\u0420\u0422\u0415\u0419 \u0417\u0410 \u0418\u0413\u0420\u0423:
-      {Statistics.deaths}\n\u0421\u041E\u0411\u0420\u0410\u041D\u041E \u041C\u041E\u041D\u0415\u0422:
-      {Statistics.allCoins}\n\u0423\u0411\u0418\u0422\u041E \u0412\u0420\u0410\u0413\u041E\u0412:
-      {Statistics.killedEnemies}"
+      {deaths}\n\u0421\u041E\u0411\u0420\u0410\u041D\u041E \u041C\u041E\u041D\u0415\u0422:
+      {allCoins}\n\u0423\u0411\u0418\u0422\u041E \u0412\u0420\u0410\u0413\u041E\u0412:
+      {enemiesKilled}"
     m_Metadata:
       m_Items:
       - id: 0

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +7,9 @@ public class Fall : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Statistics.deaths++;
+            Statistics.instance.deaths++;
             PermanentUI.perm.Reset();
+            GameObject.FindWithTag("Player").GetComponent<PlayerController>().health = 3;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

@@ -14,17 +14,20 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         death = GetComponent<AudioSource>();
     }
+
     public void JumpedOn()
     {
-        Statistics.enemiesKilled++;
+        Statistics.instance.enemiesKilled++;
         anim.SetTrigger("Death");
         death.Play();
         rb.velocity = new Vector2(0,0);
     }
+
     public void Death()
     {
         Destroy(this.gameObject);
     }
+
     public void GotHit()
     {
         anim.SetBool("Attacked", true);

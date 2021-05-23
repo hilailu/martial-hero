@@ -15,11 +15,11 @@ D:/GitProjects/martial-hero
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59058
+55764
 Successfully changed project path to: D:/GitProjects/martial-hero
 D:/GitProjects/martial-hero
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 163.85 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 140.60 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.2.0b14 (dc0b50340a64)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.2.0b14/Editor/Data/Resources/UnitySubsystems
@@ -30,27 +30,27 @@ Direct3D:
     Renderer: AMD Radeon R7 Graphics (ID=0x9874)
     Vendor:   
     VRAM:     5870 MB
-    Driver:   27.20.14501.28009
+    Driver:   27.20.21002.112
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.2.0b14/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.2.0b14/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.2.0b14/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56860
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56004
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.0b14/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.007348 seconds.
+Registered in 0.006190 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 148.60 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 134.42 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  8.737 seconds
+- Completed reload, in  6.015 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.004175 seconds.
+Registered in 0.003907 seconds.
 Begin MonoManager ReloadAssembly
 Error: Could not load signature of UnityEditor.Localization.Plugins.Google.GoogleSheets:GenerateGetRowCountRequest due to: Could not load file or assembly 'Unity.Localization.ThirdParty.Editor, Version=12.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. assembly:Unity.Localization.ThirdParty.Editor, Version=12.0.0.0, Culture=neutral, PublicKeyToken=null type:<unknown type> member:(null) signature:<none>
 
@@ -66,42 +66,31 @@ Could not load signature of UnityEditor.Localization.Plugins.Google.SheetsServic
 Unloading broken assembly Library/ScriptAssemblies/Unity.Localization.Editor.dll, this assembly can cause crashes in the runtime
 
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 181.70 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 137.06 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  7.805 seconds
+- Completed reload, in  2.973 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
-Refreshing native plugins compatible for Editor in 1.53 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.72 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2785 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 113.9 MB.
-System memory in use after: 114.1 MB.
+Unloading 2836 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 118.9 MB.
+System memory in use after: 119.1 MB.
 
-Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 3232.
-Total: 7.091600 ms (FindLiveObjects: 0.776200 ms CreateObjectMapping: 0.568600 ms MarkObjects: 5.612500 ms  DeleteObjects: 0.131300 ms)
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 3283.
+Total: 7.109100 ms (FindLiveObjects: 0.907100 ms CreateObjectMapping: 0.463100 ms MarkObjects: 5.553000 ms  DeleteObjects: 0.180600 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/ScriptableObjects/Key.asset
-  artifactKey: Guid(afdc716a155d42240b87e909fa2027ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/Key.asset using Guid(afdc716a155d42240b87e909fa2027ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'baf3423d620ae41fdea34b7cc8fc7556') in 0.106125 seconds
-  Import took 0.118180 seconds .
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 4.44 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 58.6 MB.
-System memory in use after: 58.9 MB.
-
-Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 3232.
-Total: 8.828700 ms (FindLiveObjects: 0.747500 ms CreateObjectMapping: 0.320700 ms MarkObjects: 7.690000 ms  DeleteObjects: 0.064300 ms)
+  path: Assets/AddressableAssetsData/AssetGroups
+  artifactKey: Guid(1c733b6fd0d2fb74c8534e7390290ddb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AddressableAssetsData/AssetGroups using Guid(1c733b6fd0d2fb74c8534e7390290ddb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df2a7bf465085a815359a834b2fdb2ab') in 0.027714 seconds
+  Import took 0.071952 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
