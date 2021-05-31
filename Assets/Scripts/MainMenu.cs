@@ -28,10 +28,23 @@ public class MainMenu : MonoBehaviour
         Statistics.instance.Save();
         Statistics.instance.Upd();
         Statistics.instance.go.SetActive(false);
-        if (PlayerPrefs.GetString("volume") == "off") AudioListener.volume = 0f; else AudioListener.volume = 1f;
+
         volume.StringChanged += UpdateString;
+        if (PlayerPrefs.GetString("volume") == "off")
+        {
+            AudioListener.volume = 0f;
+            volume.TableEntryReference = "vol off";
+        }
+        else
+        {
+            AudioListener.volume = 1f;
+            volume.TableEntryReference = "vol on";
+        }
+        volume.RefreshString();
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selectedButtonMainMenu);
+
         if (PlayerPrefs.GetInt("levels") >= 1)
         {
             lvl1.interactable = true;
@@ -112,6 +125,7 @@ public class MainMenu : MonoBehaviour
         if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.Locales[0])
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
         else LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+        volume.RefreshString();
     }
 
     public void SoundSwitch()
@@ -120,6 +134,7 @@ public class MainMenu : MonoBehaviour
         {
             //выключение звука
             volume.TableEntryReference = "vol off";
+            volume.GetLocalizedString(volume.Arguments);
             AudioListener.volume = 0f;
             PlayerPrefs.SetString("volume", "off");
         }
@@ -127,6 +142,7 @@ public class MainMenu : MonoBehaviour
         {
             //включение звука
             volume.TableEntryReference = "vol on";
+            volume.GetLocalizedString(volume.Arguments);
             AudioListener.volume = 1f;
             PlayerPrefs.SetString("volume", "on");
         }

@@ -12,6 +12,7 @@ TagManager:
   - Store
   - Stats
   - StatsCanvas
+  - Spikes
   layers:
   - Default
   - TransparentFX

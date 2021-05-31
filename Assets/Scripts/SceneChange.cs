@@ -13,15 +13,32 @@ public class SceneChange : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (sceneName == "SampleScene")
+            if (sceneName == "FirstLevel")
+            {
+                SceneManager.LoadScene(sceneName);
+                if (PlayerPrefs.GetInt("levels") < 1)
+                    PlayerPrefs.SetInt("levels", 1);
+            }
+
+            else if (sceneName == "SecondLevel")
             {
                 if (InventoryManager.instance.items.Contains(key) && InventoryManager.instance.items.Contains(key2))
+                {
                     SceneManager.LoadScene(sceneName);
+                    if (PlayerPrefs.GetInt("levels") < 2)
+                        PlayerPrefs.SetInt("levels", 2);
+                }
             }
-            else SceneManager.LoadScene(sceneName);
-            if (sceneName == "FirstLevel" && PlayerPrefs.GetInt("levels") < 1) PlayerPrefs.SetInt("levels", 1);
-            if (sceneName == "SecondLevel" && PlayerPrefs.GetInt("levels") < 2) PlayerPrefs.SetInt("levels", 2);
-            if (sceneName == "ThirdLevel" && PlayerPrefs.GetInt("levels") < 3) PlayerPrefs.SetInt("levels", 3);
+
+            else if (sceneName == "ThirdLevel")
+            {
+                if (InventoryManager.instance.items.Contains(key2))
+                {
+                    SceneManager.LoadScene(sceneName);
+                    if (PlayerPrefs.GetInt("levels") < 3)
+                        PlayerPrefs.SetInt("levels", 3);
+                }
+            }
         }
     }
 }

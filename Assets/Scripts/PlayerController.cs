@@ -222,6 +222,45 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        if (other.gameObject.CompareTag("Spikes"))
+        {
+            Vector3 hit = other.contacts[0].normal;
+            Debug.Log(hit);
+            float angle = Vector3.Angle(hit, Vector3.up);
+
+            state = State.takehit;
+            hurt.Play();
+            ChangeHealth();
+            anim.SetInteger("state", (int)state);
+
+            if (Mathf.Approximately(angle, 0))
+            {
+                //Down
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                Debug.Log("Down");
+            }
+            if (Mathf.Approximately(angle, 180))
+            {
+                //Up
+                Debug.Log("Up");
+            }
+            if (Mathf.Approximately(angle, 90))
+            {
+                // Sides
+                Vector3 cross = Vector3.Cross(Vector3.forward, hit);
+                if (cross.y > 0)
+                { // left side of the player
+                    rb.velocity = new Vector2(hitForce, rb.velocity.y);
+                    Debug.Log("Left");
+                }
+                else
+                { // right side of the player
+                    rb.velocity = new Vector2(-hitForce, rb.velocity.y);
+                    Debug.Log("Right");
+                }
+            }
+        }
     }
 
     private void ChangeHealth()
